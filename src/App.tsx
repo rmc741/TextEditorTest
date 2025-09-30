@@ -1,45 +1,61 @@
-import { useState } from 'react'
-import './App.css'
-import { Box, IconButton, Tooltip } from '@mui/material'
-import FormatBoldIcon from "@mui/icons-material/FormatBold";
-import FormatItalicIcon from "@mui/icons-material/FormatItalic";
-import FormatUnderlinedIcon from "@mui/icons-material/FormatUnderlined";
+import React, { useRef } from "react";
 import ReactQuill from "react-quill-new";
-import "react-quill/dist/quill.snow.css";
+import "react-quill-new/dist/quill.snow.css";
 
-function App() {
-  const [value, setValue] = useState("");
+const App: React.FC = () => {
+  const quillRef = useRef<ReactQuill | null>(null);
+
+   // Handler customizado para imagem
+  const imageHandler = () => {
+    const input = document.createElement("input");
+    input.setAttribute("type", "file");
+    input.setAttribute("accept", "image/*");
+    input.click();
+
+    input.onchange = async () => {
+      const file = input.files?.[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const base64 = reader.result;
+          const quill = quillRef.current?.getEditor();
+          const range = quill?.getSelection();
+          if (range) {
+            quill.insertEmbed(range.index, "image", base64);
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+    };
+  };
+
+  const modules = {
+    toolbar: {
+      container: [
+        ["bold", "italic", "underline"],
+        [{ list: "ordered" }, { list: "bullet" }],
+        ["link", "image"], // botão de imagem
+      ],
+      handlers: {
+        image: imageHandler, // substitui comportamento padrão
+      },
+    },
+  };
+
+  const handleSave = () => {
+    if (quillRef.current) {
+      const editor = quillRef.current.getEditor();
+      console.log(editor.root.innerHTML); // Conteúdo em HTML
+    }
+  };
 
   return (
-    <Box sx={{ p: 2 }}>
-      {/* Toolbar customizada com MUI */}
-      <Box sx={{ mb: 2, display: "flex", gap: 1 }}>
-        <Tooltip title="Negrito">
-          <IconButton onClick={() => document.execCommand("bold")}>
-            <FormatBoldIcon />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Itálico">
-          <IconButton onClick={() => document.execCommand("italic")}>
-            <FormatItalicIcon />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Sublinhado">
-          <IconButton onClick={() => document.execCommand("underline")}>
-            <FormatUnderlinedIcon />
-          </IconButton>
-        </Tooltip>
-      </Box>
+    <div>
+      <h1>Editor com React Quill</h1>
+      <ReactQuill ref={quillRef} theme="snow" modules={modules}/>
+      <button onClick={handleSave}>Salvar</button>
+    </div>
+  );
+};
 
-      {/* Editor de texto */}
-      <ReactQuill
-        theme="snow"
-        value={value}
-        onChange={setValue}
-        style={{ height: "300px", backgroundColor: "white" }}
-      />
-    </Box>
-  )
-}
-
-export default App
+export default App;
