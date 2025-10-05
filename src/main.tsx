@@ -1,12 +1,15 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
+import {AlertProvider} from "./provider/AlertProvider"
 
 export function App() {
   return (
-    <div>
-      Main APP
-    </div>
+    <AlertProvider>
+      <div>
+        Main APP
+      </div>
+    </AlertProvider>
   );
 }
 
