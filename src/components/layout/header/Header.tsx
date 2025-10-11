@@ -1,7 +1,13 @@
+import { AppBar, Typography } from "@mui/material";
+import AdbIcon from '@mui/icons-material/Adb';
+
 export function Header() {
     return (
-        <div>
-            Header
-        </div>
+        <AppBar>
+            <AdbIcon/>
+            <Typography>
+              LOGO
+            </Typography>
+        </AppBar>
     );
 }
