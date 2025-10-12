@@ -4,3 +4,13 @@
     text-decoration: none;
     color: #FFFFFF;
 }
+
+.nav-bar {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #FFFFFF;
+}
