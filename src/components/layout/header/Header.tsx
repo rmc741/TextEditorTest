@@ -1,13 +1,15 @@
 import { AppBar, Typography } from "@mui/material";
-import AdbIcon from '@mui/icons-material/Adb';
+import "./index.css"
 
 export function Header() {
     return (
-        <AppBar>
-            <img src="../../../../public/teste.svg" style={{height:"48px"}} alt="Logo NomeProjeto"/>
-            <Typography>
-              LOGO
-            </Typography>
+        <AppBar sx={{display:"flex"}}>
+            <a className="logo" href="/">
+                <img src="teste.svg" style={{height:"50px"}} alt="Logo NomeProjeto"/>
+                <Typography>
+                TEXTE EDITOR TEST
+                </Typography>
+            </a>
         </AppBar>
     );
 }
