@@ -7,6 +7,7 @@ import { Loader } from './components/loader/Loader';
 import { Header } from './components/layout/header/Header';
 import AppRouteConfig from './config/RouteConfig';
 import { BrowserRouter } from 'react-router-dom';
+import { Footer } from './components/layout/footer/Footer';
 
 export function App() {
   const isLoading = useApiLoading();
@@ -19,6 +20,7 @@ export function App() {
         <main className="main-content">
           <AppRouteConfig/>
         </main>
+        <Footer/>
       </div>
     </AlertProvider>
   );

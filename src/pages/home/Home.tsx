@@ -1,5 +1,6 @@
 import { Box, Button, Card, CardContent, Modal, TextField, Typography } from "@mui/material";
 import { useState } from "react";
+import { About } from "../about/About";
 
 type Artigos = {
     id: number;
@@ -57,8 +58,6 @@ export function Home() {
 
     return (
         <div>
-            HOME PAGE
-
             <Button
                 variant="contained"
                 onClick={handleOpen}
@@ -144,6 +143,8 @@ export function Home() {
                     </Box>
                 </Box>
             </Modal>
+
+            <About/>
         </div>
     );
 }
